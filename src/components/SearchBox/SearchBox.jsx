@@ -1,8 +1,12 @@
-import s from "./SearchBox.module.css";
+import { useDispatch } from "react-redux";
 
-export const SearchBox = ({ setSearchStr }) => {
+import s from "./SearchBox.module.css";
+import { setFilter } from "../../redux/filterSlice";
+
+export const SearchBox = () => {
+  const dispatch = useDispatch();
   const handleChange = (e) => {
-    setSearchStr(e.target.value.trim().toLowerCase());
+    dispatch(setFilter(e.target.value.trim().toLowerCase()));
   };
   return (
     <div className={s.wrapper}>

@@ -2,7 +2,10 @@ import { Form, Formik, Field, ErrorMessage } from "formik";
 import { useId } from "react";
 import * as Yup from "yup";
 import { nanoid } from "nanoid";
+
 import s from "./ContactForm.module.css";
+import { addContact } from "../../redux/contactsSlice";
+import { useDispatch } from "react-redux";
 
 const initialValues = { name: "", number: "" };
 const reg = /^\d{3}-?\d{2}-?\d{2}$/;
@@ -17,11 +20,12 @@ const validationSchema = Yup.object().shape({
     .matches(reg, 'Should be in "123-45-67" format'),
 });
 
-export const ContactForm = ({ addContact }) => {
+export const ContactForm = () => {
+  const dispatch = useDispatch();
   const nameId = useId();
   const numberId = useId();
   const handleSubmit = (values) => {
-    addContact({ id: nanoid(), ...values });
+    dispatch(addContact({ id: nanoid(), ...values }));
   };
 
   return (
