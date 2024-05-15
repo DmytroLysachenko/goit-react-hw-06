@@ -24,8 +24,9 @@ export const ContactForm = () => {
   const dispatch = useDispatch();
   const nameId = useId();
   const numberId = useId();
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, actions) => {
     dispatch(addContact({ id: nanoid(), ...values }));
+    actions.resetForm();
   };
 
   return (
@@ -48,7 +49,7 @@ export const ContactForm = () => {
             <ErrorMessage name="name" component="span" className={s.error} />
           </label>
           <label htmlFor={numberId} className={s.label}>
-            number:
+            Number:
             <Field
               type="tel"
               name="number"
